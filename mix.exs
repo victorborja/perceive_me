@@ -18,7 +18,7 @@ defmodule PerceiveMe.Mixfile do
   def application do
     [mod: {PerceiveMe, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :edeliver]]
   end
 
   # Specifies which paths to compile per environment
@@ -34,6 +34,8 @@ defmodule PerceiveMe.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:edeliver, "~> 1.0.0"}
+   ]
   end
 end

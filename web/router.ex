@@ -17,6 +17,8 @@ defmodule PerceiveMe.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/me", PersonController, :me
+    post "/me", PersonController, :answer
   end
 
   # Other scopes may use custom stacks.

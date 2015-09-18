@@ -13,8 +13,16 @@ defmodule PerceiveMe.PersonController do
   end
 
   def answer(conn, params) do
-    chunche = Ecto.UUID.generate
-    person = %Person{country: "MX", photo: chunche, url: chunche}
+    uuid = Ecto.UUID.generate
+    %{"person" => %{"file" => upload}} = params
+
+    ext = Path.extname(upload.filename)
+
+    File.mkdir_p("web/static/assets/people_photos")
+    File.cp!(upload.path, "web/static/assets/people_photos/#{uuid}#{ext}")
+
+    photo_path = "people_photos/#{uuid}#{ext}"
+    person = %Person{country: "MX", photo: photo_path, url: uuid}
     person = Repo.insert!(person)
 
 

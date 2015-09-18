@@ -1,5 +1,7 @@
-<%= form_tag("/me", method: "POST") do %>
+<%= form_tag("/me", method: "POST", multipart: true) do %>
   <%= hidden_input(:answers, :language, value: @language) %>
+
+  <%= file_input(:person, :file) %>
 
   <label><%= @questions.question_1 %></label>
   <%= textarea(:answers, :answer_1) %>

@@ -18,10 +18,10 @@ defmodule PerceiveMe.PersonController do
 
     ext = Path.extname(upload.filename)
 
-    File.mkdir_p("web/static/assets/people_photos")
-    File.cp!(upload.path, "web/static/assets/people_photos/#{uuid}#{ext}")
+    File.mkdir_p("#{Mix.Project.app_path}/priv/static/images/people_photos")
+    File.cp!(upload.path, "#{Mix.Project.app_path}/priv/static/images/people_photos/#{uuid}#{ext}")
 
-    photo_path = "people_photos/#{uuid}#{ext}"
+    photo_path = "/people_photos/#{uuid}#{ext}"
     person = %Person{country: "MX", photo: photo_path, url: uuid}
     person = Repo.insert!(person)
 

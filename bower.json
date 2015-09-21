@@ -1,0 +1,19 @@
+{
+  "name": "perceive.me",
+  "version": "0.0.0",
+  "authors": [
+    "Victor Borja <vborja@apache.org>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "webcamjs": "~1.0.4"
+  }
+}

@@ -1,7 +1,11 @@
 <%= form_tag("/me", method: "POST", multipart: true) do %>
   <%= hidden_input(:answers, :language, value: @language) %>
+  <div id="my_camera" style="width:320px; height:240px;"></div>
+  <div id="my_photo"></div>
+  <input id="smile" type="button" value="SMILE" />
 
   <%= file_input(:person, :file) %>
+  <%= hidden_input(:person, :snap) %>
 
   <label><%= @questions.question_1 %></label>
   <%= textarea(:answers, :answer_1) %>
@@ -20,3 +24,4 @@
 
   <%= submit "Submit" %>
 <% end %>
+

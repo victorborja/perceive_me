@@ -22,5 +22,13 @@ defmodule PerceiveMe.Person do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:country, max: 3, min: 3)
   end
+
+  def find_by_id(id) do
+    PerceiveMe.Repo.one!(from p in PerceiveMe.Person, where: p.id == ^id)
+  end
+
+  def find_by_url(url) do
+    PerceiveMe.Repo.one!(from p in PerceiveMe.Person, where: p.url == ^url)
+  end
   
 end

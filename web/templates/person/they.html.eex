@@ -1,0 +1,18 @@
+<img src="<%= static_path(@conn, "/images" <> @answers.person.photo) %>">
+
+<label>Tags</label>:
+
+<% if @answers %>
+  <%= render "_answers.html", @answers %>
+<% end %>
+
+<%= form_tag("/they", method: "POST") do %>
+
+ <%= hidden_input(:perception, :person_id, value: @person.id) %>
+ <%= hidden_input(:perception, :after_answers, value: !!@answers) %>
+
+ <%= text_input :perception, :tags %>
+
+ <%= submit "submit" %>
+
+<% end %>

@@ -34,6 +34,7 @@ defmodule PerceiveMe.Repo.Migrations.CreateTables do
       add :person_id,     references(:people)
       add :tag,           :string
       add :after_answers, :boolean
+      timestamps
     end
 
   end

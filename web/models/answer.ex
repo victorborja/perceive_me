@@ -28,5 +28,23 @@ defmodule PerceiveMe.Answer do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:language, max: 2, min: 2)
   end
+
+  def from_url_with_lang(person_url, lang) do
+    query = from answer in PerceiveMe.Answer,
+      join: person in PerceiveMe.Person, on: answer.person_id == person.id,
+      where: answer.language == ^lang,
+      where: person.url == ^person_url,
+      limit: 1,
+      preload: [:person]
+    PerceiveMe.Repo.one! query
+  end
+
+  def answers_for_lang(lang) do
+    query = from answer in PerceiveMe.Answer,
+      where: answer.language == ^lang,
+      limit: 1,
+      preload: [:person]
+    PerceiveMe.Repo.one! query
+  end
   
 end

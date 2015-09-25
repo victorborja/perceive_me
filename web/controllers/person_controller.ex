@@ -4,20 +4,46 @@ defmodule PerceiveMe.PersonController do
   alias PerceiveMe.Person
   alias PerceiveMe.Question
   alias PerceiveMe.Answer
+  alias PerceiveMe.Perception
   alias PerceiveMe.Repo
 
-  def me(conn, _params) do
+  def show_form(conn, _params) do
     language = "es"
     questions = Question.questions_for_lang(language)
     render conn, "me.html", questions: questions, language: language
   end
 
-  def answer(conn, params) do
+  def create(conn, params) do
     uuid = Ecto.UUID.generate
     photo_path = save_photo(uuid, params["person"])
     create_user(uuid, photo_path, params["answers"])
     text conn, inspect(params)
   end
+
+  def show_random(conn, params) do
+    answers = Answer.answers_for_lang("es")
+    redirect conn, to: "/they/#{answers.person.url}"
+  end
+
+  def show_them(conn, %{"person_url" => url} = params) do
+    person = Person.find_by_url(url)
+    render conn, "they.html", person: person
+  end
+
+  def perceive(conn, params) do
+    %{"perception" => perception} = params
+    person = Person.find_by_id(person_id)
+    answers = Answer.from_url_with_lang(person.url, "es")
+
+    tags = String.split(tags, ",", trim: true)
+    Enum.each(tags, fn(tag) -> 
+      perception = Perception.changeset(%Perception{}, %{perception | tag: tag})
+      Repo.insert! perception
+    end)
+
+    render conn, "they.html", person: person, answers: answers
+  end
+  
 
   defp save_photo(uuid, %{"file" => upload}) do
     ext = Path.extname(upload.filename)
